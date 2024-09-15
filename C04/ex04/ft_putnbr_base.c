@@ -6,11 +6,11 @@
 /*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 23:44:23 by kishino           #+#    #+#             */
-/*   Updated: 2024/09/12 19:27:46 by kishino          ###   ########.fr       */
+/*   Updated: 2024/09/14 20:46:21 by kishino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<unistd.h>
+#include <unistd.h>
 #include <limits.h>
 
 void	ft_putchar(char c)
@@ -21,137 +21,121 @@ void	ft_putchar(char c)
 int	check_base(char *base)
 {
 	int	i;
-	int	z;
+	int	j;
 
 	i = 0;
-	z = 0;
-	if (base[0] == '\0' || base[1] == '\0')
+	if (!base[0] || !base[1])
 		return (0);
 	while (base[i])
 	{
-		z = i + 1;
+		j = i + 1;
 		if (base[i] == '+' || base[i] == '-')
 			return (0);
-		while (base[z])
+		while (base[j])
 		{
-			if (base[i] == base[z])
+			if (base[i] == base[j])
 				return (0);
-			z++;
+			j++;
 		}
 		i++;
 	}
 	return (1);
 }
 
-void	handle_negative(int *nbr)
+void	convert_to_base(long nbr, char *base, int s_base)
 {
-	if (*nbr == INT_MIN)
-	{
-		ft_putchar('-');
-		ft_putchar('2');
-		*nbr = 147483648;
-	}
-	else if (*nbr < 0)
-	{
-		*nbr = -*nbr;
-		ft_putchar('-');
-	}
-}
-
-void	convert_to_base(int nbr, char *base, int size_base)
-{
-	int	nbr_final[1024];
-	int	i;
-
-	i = 0;
-	while (nbr)
-	{
-		nbr_final[i] = nbr % size_base;
-		nbr = nbr / size_base;
-		i++;
-	}
-	while (--i >= 0)
-		ft_putchar(base[nbr_final[i]]);
+	if (nbr >= s_base)
+		convert_to_base(nbr / s_base, base, s_base);
+	ft_putchar(base[nbr % s_base]);
 }
 
 void	ft_putnbr_base(int nbr, char *base)
 {
-	int	size_base;
+	int		s_base;
+	long	lnbr;
 
-	size_base = 0;
-	if (check_base(base) == 1)
+	if (!check_base(base))
+		return ;
+	s_base = 0;
+	while (base[s_base])
+		s_base++;
+	lnbr = nbr;
+	if (lnbr < 0)
 	{
-		while (base[size_base])
-			size_base++;
-		handle_negative(&nbr);
-		convert_to_base(nbr, base, size_base);
+		ft_putchar('-');
+		lnbr = -lnbr;
 	}
-	return ;
+	convert_to_base(lnbr, base, s_base);
 }
 
-#include <stdio.h>
+// #include <stdio.h>
 
+// int	main(void)
+// {
+// 	// テストケース 1: 10進数
+// 	printf("10進数 (正の数): ");
+// 	ft_putnbr_base(1234, "0123456789");
+// 	printf("\n");
 
-int	main(void)
-{
-	// テストケース 1: 10進数
-	printf("abv");
-	ft_putnbr_base(1234, "0123456789");
-	printf("\n");
+// 	// テストケース 2: 10進数（負の数）
+// 	printf("10進数 (負の数): ");
+// 	ft_putnbr_base(-1234, "0123456789");
+// 	printf("\n");
 
-	// テストケース 2: 10進数（負の数）
+// 	// テストケース 3: 2進数
+// 	printf("2進数 (正の数): ");
+// 	ft_putnbr_base(1234, "01");
+// 	printf("\n");
 
-	ft_putnbr_base(-1234, "0123456789");
-	printf("\n");
+// 	// テストケース 4: 2進数（負の数）
+// 	printf("2進数 (負の数): ");
+// 	ft_putnbr_base(-1234, "01");
+// 	printf("\n");
 
-	// テストケース 3: 2進数
+// 	// テストケース 5: 16進数
+// 	printf("16進数 (正の数): ");
+// 	ft_putnbr_base(1234, "0123456789ABCDEF");
+// 	printf("\n");
 
-	ft_putnbr_base(1234, "01");
-	printf("\n");
+// 	// テストケース 6: 16進数（負の数）
+// 	printf("16進数 (負の数): ");
+// 	ft_putnbr_base(-1234, "0123456789ABCDEF");
+// 	printf("\n");
 
-	// テストケース 4: 2進数（負の数）
+// 	// テストケース 7: 8進数（カスタムベース）
+// 	printf("8進数 (カスタムベース, 正の数): ");
+// 	ft_putnbr_base(1234, "poneyvif");
+// 	printf("\n");
 
-	ft_putnbr_base(-1234, "01");
-	printf("\n");
+// 	// テストケース 8: 8進数（カスタムベース、負の数）
+// 	printf("8進数 (カスタムベース, 負の数): ");
+// 	ft_putnbr_base(-1234, "poneyvif");
+// 	printf("\n");
 
-	// テストケース 5: 16進数
+// 	// テストケース 9: INT_MIN (10進数)
+// 	printf("INT_MIN (10進数): ");
+// 	ft_putnbr_base(INT_MIN, "0123456789");
+// 	printf("\n");
 
-	ft_putnbr_base(1234, "0123456789ABCDEF");
-	printf("\n");
+// 	// テストケース 10: INT_MIN (16進数)
+// 	printf("INT_MIN (16進数): ");
+// 	ft_putnbr_base(INT_MIN, "0123456789ABCDEF");
+// 	printf("\n");
 
-	// テストケース 6: 16進数（負の数）
+// 	// 無効なベース
+// 	printf("無効なベース (+含む): ");
+// 	ft_putnbr_base(1234, "012+3456789");
+// 	printf("\n");
 
-	ft_putnbr_base(-1234, "0123456789ABCDEF");
-	printf("\n");
+// 	// 無効なベース（1文字）
+// 	printf("無効なベース (1文字): ");
+// 	ft_putnbr_base(1234, "0");
+// 	printf("\n");
 
-	// テストケース 7: 8進数（カスタムベース）
+// 	// 無効なベース（空のベース）
+// 	printf("無効なベース（空のベース）: ");
+// 	ft_putnbr_base(1234, "");
+// 	printf("\n");
 
-	ft_putnbr_base(1234, "poneyvif");
-	printf("\n");
-
-	// テストケース 8: 8進数（カスタムベース、負の数）
-
-	ft_putnbr_base(-1234, "poneyvif");
-	printf("\n");
-
-	// テストケース 9: INT_MIN
-
-	ft_putnbr_base(-2147483648, "0123456789");
-	printf("\n");
-
-	// 無効なベース
-
-	ft_putnbr_base(1234, "012+3456789");
-	printf("\n");
-
-	// 無効なベース（1文字）
-
-	ft_putnbr_base(1234, "0");
-	printf("\n");
-
-	// 無効なベース（空のベース）
-	ft_putnbr_base(1234, "");
-	printf("\n");
-
-	return (0);
-}
+// 	return (0);
+// }

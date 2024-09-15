@@ -6,7 +6,22 @@
 /*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:56:25 by kishino           #+#    #+#             */
-/*   Updated: 2024/09/11 22:56:26 by kishino          ###   ########.fr       */
+/*   Updated: 2024/09/14 17:04:30 by kishino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+int	ft_sqrt(int nb)
+{
+	int	i;
+
+	i = 0;
+	if (nb <= 0)
+		return (0);
+	while (i * i < nb)
+	{
+		if (i * i == nb)
+			return (i);
+		i++;
+	}
+	return (0);
+}

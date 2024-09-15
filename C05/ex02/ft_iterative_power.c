@@ -6,13 +6,30 @@
 /*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:54:51 by kishino           #+#    #+#             */
-/*   Updated: 2024/09/12 17:14:11 by kishino          ###   ########.fr       */
+/*   Updated: 2024/09/13 22:13:24 by kishino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_iterative_power(int nb, int power)
 {
-	if (nb < 0)
+	int	i;
+
+	i = nb;
+	if (nb >= 0 && power == 0)
+		return (1);
+	if (nb < 0 || power < 0)
 		return (0);
-	return nb * ft_iterative_power(nb, power -1);
+	else
+	{
+		nb *= i;
+		power--;
+	}
+	return (nb);
 }
+
+// #include <stdio.h>
+
+// int main(void)
+// {
+// 	printf("%i", ft_iterative_power(0, 9));
+// }

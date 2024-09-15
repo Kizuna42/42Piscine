@@ -6,7 +6,22 @@
 /*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:57:36 by kishino           #+#    #+#             */
-/*   Updated: 2024/09/11 22:57:37 by kishino          ###   ########.fr       */
+/*   Updated: 2024/09/14 18:49:12 by kishino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+int	ft_is_prime(int nb)
+{
+	int	i;
+
+	i = 2;
+	if (nb <= 1)
+		return (0);
+	while (i * i <= nb)
+	{
+		if (nb % i == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
