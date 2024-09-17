@@ -3,23 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   grid.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: jidler <jidler@student.42tokyo.jp >        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 15:41:53 by yossasak          #+#    #+#             */
-/*   Updated: 2024/09/14 15:41:56 by yossasak         ###   ########.fr       */
+/*   Created: 2024-09-15 13:46:27 by jidler            #+#    #+#             */
+/*   Updated: 2024-09-15 13:46:27 by jidler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	print_criteria(int arr[4][4]);
+#define S 5
 
-void	inc_asign(int grid[4][4], int constant, int roworcolumn, int inc_or_dec)
+void	print_field(int arr[S][S]);
+
+void	inc_asign(int grid[S][S], int constant, int roworcolumn, int inc_or_dec)
 {
 	int	z;
 
 	if (inc_or_dec == 0)
 	{
 		z = -1;
-		while (++z < 4)
+		while (++z < S)
 		{
 			if (roworcolumn == 0)
 				grid[constant][z] = z + 1;
@@ -29,30 +31,30 @@ void	inc_asign(int grid[4][4], int constant, int roworcolumn, int inc_or_dec)
 	}
 	else
 	{
-		z = 4;
+		z = S;
 		while (--z > -1)
 		{
 			if (roworcolumn == 0)
-				grid[constant][z] = 4 - z;
+				grid[constant][z] = S - z;
 			else
-				grid[z][constant] = 4 - z;
+				grid[z][constant] = S - z;
 		}
 	}
 }
 
-void	asign_one(int grid[4][4], int i, int j)
+void	asign_one(int grid[S][S], int i, int j)
 {
 	if (i == 0)
-		grid[0][j] = 4;
+		grid[0][j] = S;
 	else if (i == 1)
-		grid[3][j] = 4;
+		grid[S - 1][j] = S;
 	else if (i == 2)
-		grid[j][0] = 4;
+		grid[j][0] = S;
 	else
-		grid[j][3] = 4;
+		grid[j][S - 1] = S;
 }
 
-void	asign(int grid[4][4], int *i, int *j, int arr[4][4])
+void	asign(int grid[S][S], int *i, int *j, int arr[4][S])
 {
 	int	z;
 
@@ -69,7 +71,7 @@ void	asign(int grid[4][4], int *i, int *j, int arr[4][4])
 		inc_asign(grid, *j, 0, 1);
 }
 
-void	init_grid(int arr[4][4], int grid[4][4])
+void	init_grid(int arr[4][S], int grid[S][S])
 {
 	int	i;
 	int	j;
@@ -78,9 +80,9 @@ void	init_grid(int arr[4][4], int grid[4][4])
 	while (++i < 4)
 	{
 		j = -1;
-		while (++j < 4)
+		while (++j < S)
 		{
-			if (arr[i][j] == 4 || arr[i][j] == 1)
+			if (arr[i][j] == S || arr[i][j] == 1)
 			{
 				asign(grid, &i, &j, arr);
 			}

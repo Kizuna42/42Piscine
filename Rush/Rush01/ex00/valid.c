@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jidler <jidler@student.42tokyo.jp >        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 15:43:46 by yossasak          #+#    #+#             */
-/*   Updated: 2024/09/15 14:20:30 by kishino          ###   ########.fr       */
+/*   Created: 2024-09-15 13:46:15 by jidler            #+#    #+#             */
+/*   Updated: 2024-09-15 13:46:15 by jidler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-#define S 5
-
-int	row_leftright(int check, int *attr, int grid[S][S], int arr[4][S])
+int	row_left_right(int check, int *attr, int grid[4][4], int arr[4][4])
 {
 	int	i;
 	int	highest;
@@ -23,7 +21,7 @@ int	row_leftright(int check, int *attr, int grid[S][S], int arr[4][S])
 	i = -1;
 	highest = 0;
 	count = 0;
-	while (++i < S)
+	while (++i < 4)
 	{
 		if (attr[2] == grid[attr[0]][i] && i != attr[1])
 			return (1);
@@ -42,7 +40,7 @@ int	row_leftright(int check, int *attr, int grid[S][S], int arr[4][S])
 	return (0);
 }
 
-int	col_updown(int check, int *attr, int grid[S][S], int arr[4][S])
+int	col_up_down(int check, int *attr, int grid[4][4], int arr[4][4])
 {
 	int	i;
 	int	highest;
@@ -51,7 +49,7 @@ int	col_updown(int check, int *attr, int grid[S][S], int arr[4][S])
 	count = 0;
 	i = -1;
 	highest = 0;
-	while (++i < S)
+	while (++i < 4)
 	{
 		if (attr[2] == grid[i][attr[1]] && i != attr[0])
 			return (1);
@@ -70,7 +68,7 @@ int	col_updown(int check, int *attr, int grid[S][S], int arr[4][S])
 	return (0);
 }
 
-int	rightleft(int check, int *attr, int grid[S][S], int arr[4][S])
+int	right_left(int check, int *attr, int grid[4][4], int arr[4][4])
 {
 	int	count;
 	int	highest;
@@ -78,7 +76,7 @@ int	rightleft(int check, int *attr, int grid[S][S], int arr[4][S])
 
 	count = 0;
 	highest = 0;
-	i = S;
+	i = 4;
 	while (--i > -1)
 	{
 		if (grid[attr[0]][i] > highest)
@@ -96,7 +94,7 @@ int	rightleft(int check, int *attr, int grid[S][S], int arr[4][S])
 	return (0);
 }
 
-int	downup(int check, int *attr, int grid[S][S], int arr[4][S])
+int	down_up(int check, int *attr, int grid[4][4], int arr[4][4])
 {
 	int	count;
 	int	highest;
@@ -104,7 +102,7 @@ int	downup(int check, int *attr, int grid[S][S], int arr[4][S])
 
 	count = 0;
 	highest = 0;
-	i = S;
+	i = 4;
 	while (--i > -1)
 	{
 		if (grid[i][attr[1]] > highest)

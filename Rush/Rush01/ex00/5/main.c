@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jidler <jidler@student.42tokyo.jp >        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 15:42:09 by yossasak          #+#    #+#             */
-/*   Updated: 2024/09/15 14:20:15 by kishino          ###   ########.fr       */
+/*   Created: 2024-09-15 13:46:32 by jidler            #+#    #+#             */
+/*   Updated: 2024-09-15 13:46:32 by jidler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define S 5
 
-void	solve(int arr[4][S]);
+void	solve_puzzle(int arr[4][S]);
 
 void	initialize(char *str, int *attr, int arr[4][S])
 {
@@ -68,7 +68,7 @@ int	main(int argc, char **argv)
 			write(1, "Error\n", 6);
 		if (arr[3][S - 1] == -1)
 			return (0);
-		solve(arr);
+		solve_puzzle(arr);
 	}
 	else
 		write(1, "Error\n", 6);

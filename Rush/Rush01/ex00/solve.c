@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   solve.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yossasak <yossasak@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: jidler <jidler@student.42tokyo.jp >        #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 15:43:05 by yossasak          #+#    #+#             */
-/*   Updated: 2024/09/14 17:09:10 by yossasak         ###   ########.fr       */
+/*   Created: 2024-09-15 13:46:08 by jidler            #+#    #+#             */
+/*   Updated: 2024-09-15 13:46:08 by jidler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	solve(int arr[4][4]);
-void	print_criteria(int arr[4][4]);
-void	init_grid(int arr[4][4], int grid[4][4]);
-int		recursion(int grid[4][4], int arr[4][4], int r, int c);
-int		row_leftright(int check, int *attr, int grid[4][4], int arr[4][4]);
-int		col_updown(int check, int *attr, int grid[4][4], int arr[4][4]);
-int		rightleft(int check, int *attr, int grid[4][4], int arr[4][4]);
-int		downup(int check, int *attr, int grid[4][4], int arr[4][4]);
+void	solve_puzzle(int arr[4][4]);
+void	print_field(int field[4][4]);
+void	check_four_and_one(int arr[4][4], int grid[4][4]);
+int		solve_recursion(int grid[4][4], int arr[4][4], int r, int c);
+int		row_left_right(int check, int *attr, int grid[4][4], int arr[4][4]);
+int		col_up_down(int check, int *attr, int grid[4][4], int arr[4][4]);
+int		right_left(int check, int *attr, int grid[4][4], int arr[4][4]);
+int		down_up(int check, int *attr, int grid[4][4], int arr[4][4]);
 
-int	is_valid(int grid[4][4], int arr[4][4], int *attr)
+int	check_validity(int grid[4][4], int arr[4][4], int *attr)
 {
 	grid[attr[0]][attr[1]] = attr[2];
-	if (row_leftright(0, attr, grid, arr) == 1)
+	if (row_left_right(0, attr, grid, arr) == 1)
 		return (1);
-	if (col_updown(0, attr, grid, arr) == 1)
+	if (col_up_down(0, attr, grid, arr) == 1)
 		return (1);
-	if (rightleft(0, attr, grid, arr) == 1)
+	if (right_left(0, attr, grid, arr) == 1)
 		return (1);
-	if (downup(0, attr, grid, arr) == 1)
+	if (down_up(0, attr, grid, arr) == 1)
 		return (1);
 	return (0);
 }
@@ -48,7 +48,8 @@ int	condition(int arr[4][4], int r, int c)
 	return (0);
 }
 
-int	condition_loop(int *i, int *attr, int arr[4][4], int grid[4][4])
+int	backtracking_condition_loop(int *i, int *attr, int arr[4][4],
+		int grid[4][4])
 {
 	int	r;
 	int	c;
@@ -64,9 +65,9 @@ int	condition_loop(int *i, int *attr, int arr[4][4], int grid[4][4])
 				continue ;
 		}
 		attr[2] = *i;
-		if (is_valid(grid, arr, attr) == 0)
+		if (check_validity(grid, arr, attr) == 0)
 		{
-			if (recursion(grid, arr, r, c + 1) == 0)
+			if (solve_recursion(grid, arr, r, c + 1) == 0)
 				return (0);
 			grid[r][c] = -1;
 		}
@@ -76,7 +77,7 @@ int	condition_loop(int *i, int *attr, int arr[4][4], int grid[4][4])
 	return (1);
 }
 
-int	recursion(int grid[4][4], int arr[4][4], int r, int c)
+int	solve_recursion(int grid[4][4], int arr[4][4], int r, int c)
 {
 	int	i;
 	int	attr[3];
@@ -87,19 +88,19 @@ int	recursion(int grid[4][4], int arr[4][4], int r, int c)
 	if (r == 4)
 		return (0);
 	else if (c == 4)
-		return (recursion(grid, arr, r + 1, 0));
+		return (solve_recursion(grid, arr, r + 1, 0));
 	else if (grid[r][c] != -1)
-		return (recursion(grid, arr, r, c + 1));
+		return (solve_recursion(grid, arr, r, c + 1));
 	else
 	{
-		if (condition_loop(&i, attr, arr, grid) == 0)
+		if (backtracking_condition_loop(&i, attr, arr, grid) == 0)
 			return (0);
 		else
 			return (1);
 	}
 }
 
-void	solve(int arr[4][4])
+void	solve_puzzle(int arr[4][4])
 {
 	int	grid[4][4];
 	int	i;
@@ -113,10 +114,10 @@ void	solve(int arr[4][4])
 		while (++j < 4)
 			grid[i][j] = -1;
 	}
-	init_grid(arr, grid);
-	ans = recursion(grid, arr, 0, 0);
+	check_four_and_one(arr, grid);
+	ans = solve_recursion(grid, arr, 0, 0);
 	if (ans == 0)
-		print_criteria(grid);
+		print_field(grid);
 	else
 		write(1, "Error", 5);
 }
