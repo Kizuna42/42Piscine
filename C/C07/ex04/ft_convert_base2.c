@@ -71,12 +71,10 @@ char	*ft_itoa_base(int nbr, char *base_to, int s_base_to)
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
 	int		nb;
-	int		s_base_from;
 	int		s_base_to;
 
 	if (!check_base(base_from) || !check_base(base_to))
 		return (NULL);
-	s_base_from = ft_strlen(base_from);
 	s_base_to = ft_strlen(base_to);
 	nb = ft_atoi_base(nbr, base_from);
 	return (ft_itoa_base(nb, base_to, s_base_to));

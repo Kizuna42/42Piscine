@@ -56,9 +56,6 @@ void	asign_one(int grid[S][S], int i, int j)
 
 void	asign(int grid[S][S], int *i, int *j, int arr[4][S])
 {
-	int	z;
-
-	z = -1;
 	if (arr[*i][*j] == 1)
 		asign_one(grid, *i, *j);
 	else if (*i == 0)
