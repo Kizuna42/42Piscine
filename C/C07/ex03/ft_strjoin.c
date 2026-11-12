@@ -64,6 +64,8 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 	if (size == 0)
 	{
 		str = malloc(sizeof(char));
+		if (!str)
+			return (NULL);
 		*str = 0;
 		return (str);
 	}
