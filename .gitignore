@@ -1,0 +1,5 @@
+# ビルド生成物
+*.o
+*.out
+*.a
+Rush/Rush02/ex00/rush-02

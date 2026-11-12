@@ -55,9 +55,6 @@ void	handle_one(int grid[4][4], int i, int j)
 
 void	helper_function(int grid[4][4], int *i, int *j, int arr[4][4])
 {
-	int	z;
-
-	z = -1;
 	if (arr[*i][*j] == 1)
 		handle_one(grid, *i, *j);
 	else if (*i == 0)

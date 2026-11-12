@@ -38,8 +38,8 @@ void	ft_print_combn(int n)
 	int		flag;
 	int		base;
 	int		i;
-	char	v[10];
-	char	v_max[10];
+	char	v[11];
+	char	v_max[11];
 
 	if (n <= 0 || n > 10)
 		return ;
@@ -60,9 +60,4 @@ void	ft_print_combn(int n)
 			v[++flag] = ++base;
 		print_array(v, n, v_max[0]);
 	}
-}
-
-int	main(void)
-{
-	ft_print_combn(4);
 }

@@ -9,8 +9,8 @@ all:$(TARGET)
 $(TARGET):$(OBJS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
-.o.c:
-	$(CC)  -c $< -o $@ 
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
